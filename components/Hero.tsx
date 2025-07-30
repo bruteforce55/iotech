@@ -49,8 +49,13 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [mediaItems]);
 
+  // Placeholder content if media is still loading
   if (mediaItems.length === 0) {
-    return <div>Loading...</div>;
+    return (
+      <section className="min-h-screen flex items-center justify-center bg-gray-800">
+        <div className="text-white text-2xl">Loading...</div>
+      </section>
+    );
   }
 
   const currentMedia = mediaItems[currentIndex];
@@ -71,8 +76,8 @@ export default function Hero() {
               className={`w-[15px] h-[15px] rounded-full border-2 duration-300
                 ${
                   index === currentIndex
-                    ? "bg-white border-white"
-                    : "border-white bg-transparent hover:bg-white/50 hover:scale-150"
+                  ? "bg-white border-white"
+                  : "border-white bg-transparent hover:bg-white/50 hover:scale-150"
                 }
               `}
               style={{ border: '2px solid white' }}

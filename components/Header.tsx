@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import SearchToggle from "./SearchToggle";
 
 export default function Header() {
@@ -52,7 +53,19 @@ export default function Header() {
       }`}
     >
       <nav className="max-w-7xl mx-auto grid grid-cols-3 items-center relative">
-        <div></div>
+        <div>
+          <div className="flex items-center">
+            <Link href="/">
+              <Image
+                src="/header-logo.svg"
+                alt="Company Logo"
+                width={120}
+                height={50}
+                priority
+              />
+            </Link>
+          </div>
+        </div>
 
         <ul className="flex justify-center space-x-6 list-none relative w-max">
           {[
@@ -223,20 +236,20 @@ export default function Header() {
                     </div>
                   )}
                 </>
-              ) : href === 'scrollToOurTeam' ? (
-      <span
-        onClick={() => {
-          const element = document.getElementById('our-team');
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-          setIsServicesOpen(false); // close services menu if open
-        }}
-        className="cursor-pointer text-white text-[15px] font-medium hover:text-gray-300 transition"
-      >
-        {label}
-      </span>
-    ) : (
+              ) : href === "scrollToOurTeam" ? (
+                <span
+                  onClick={() => {
+                    const element = document.getElementById("our-team");
+                    if (element) {
+                      element.scrollIntoView({ behavior: "smooth" });
+                    }
+                    setIsServicesOpen(false); // close services menu if open
+                  }}
+                  className="cursor-pointer text-white text-[15px] font-medium hover:text-gray-300 transition"
+                >
+                  {label}
+                </span>
+              ) : (
                 <Link
                   href={href}
                   className="text-white text-[15px] font-medium hover:text-gray-300 transition"
