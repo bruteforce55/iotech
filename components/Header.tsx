@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
-import SearchToggle from './SearchToggle';
+import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import SearchToggle from "./SearchToggle";
 
 export default function Header() {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState('EN'); // default language
+  const [currentLang, setCurrentLang] = useState("EN"); // default language
   const servicesRef = useRef();
   const langDropdownRef = useRef();
 
-  const languages = ['EN', 'AR']; // example languages
+  const languages = ["EN", "AR"]; // example languages
 
   // Close on outside click
   useEffect(() => {
@@ -26,8 +26,8 @@ export default function Header() {
         setIsLangDropdownOpen(false);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Close language dropdown when megamenu closes
@@ -37,36 +37,62 @@ export default function Header() {
     }
   }, [isServicesOpen]);
 
+  function scrollToOurTeam() {
+  const element = document.getElementById('our-team');
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+
   return (
     <header
       className={`w-full shadow p-4 sticky top-0 z-50 transition-colors duration-300 ${
-        isServicesOpen ? 'bg-[#2b1700]' : 'bg-black/80'
+        isServicesOpen ? "bg-[#2b1700]" : "bg-black/80"
       }`}
     >
       <nav className="max-w-7xl mx-auto grid grid-cols-3 items-center relative">
         <div></div>
 
-        <ul className="flex justify-center space-x-6 list-none relative">
+        <ul className="flex justify-center space-x-6 list-none relative w-max">
           {[
-            ['Home', '/'],
-            ['About Us', '/about'],
-            ['Services', null],
-            ['Blog', '/blog'],
-            ['Our Team', '/team'],
-            ['Contact Us', '/contact'],
+            ["Home", "/"],
+            ["About Us", "/about"],
+            ["Services", null],
+            ["Blog", "/blog"],
+            ["Our Team", "scrollToOurTeam"],
+            ["Contact Us", "/contact"],
           ].map(([label, href]) => (
             <li
               key={label}
               className="relative mx-[10px]"
-              ref={label === 'Services' ? servicesRef : null}
+              ref={label === "Services" ? servicesRef : null}
             >
-              {label === 'Services' ? (
+              {label === "Services" ? (
                 <>
                   <div
                     onClick={() => setIsServicesOpen(!isServicesOpen)}
-                    className="cursor-pointer text-white text-[15px] font-medium hover:text-gray-300 transition select-none"
+                    className="cursor-pointer flex items-center space-x-1 text-white text-[15px] font-medium hover:text-gray-300 transition select-none"
                   >
-                    Services
+                    <span>Services</span>
+                    <svg
+                      className={`w-4 h-4 transform transition-transform ${
+                        isServicesOpen ? "rotate-180" : "rotate-0"
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      width="15px"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
                   </div>
 
                   {isServicesOpen && (
@@ -196,22 +222,21 @@ export default function Header() {
                       </div>
                     </div>
                   )}
-                  <svg
-                  className={`w-4 h-4 transform transition-transform ${
-                    isServicesOpen ? 'rotate-180' : 'rotate-0'
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  width="15px"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path>
-                </svg>
                 </>
-              ) : (
+              ) : href === 'scrollToOurTeam' ? (
+      <span
+        onClick={() => {
+          const element = document.getElementById('our-team');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+          setIsServicesOpen(false); // close services menu if open
+        }}
+        className="cursor-pointer text-white text-[15px] font-medium hover:text-gray-300 transition"
+      >
+        {label}
+      </span>
+    ) : (
                 <Link
                   href={href}
                   className="text-white text-[15px] font-medium hover:text-gray-300 transition"
@@ -235,7 +260,7 @@ export default function Header() {
                 <span>{currentLang}</span>
                 <svg
                   className={`w-4 h-4 transform transition-transform ${
-                    isLangDropdownOpen ? 'rotate-180' : 'rotate-0'
+                    isLangDropdownOpen ? "rotate-180" : "rotate-0"
                   }`}
                   fill="none"
                   stroke="currentColor"
@@ -245,35 +270,41 @@ export default function Header() {
                   xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
                 </svg>
               </div>
 
               {isLangDropdownOpen && (
-  <div
-    className="absolute mt-2 w-24 bg-white text-black rounded shadow-lg z-50"
-    style={{ backgroundColor: 'white', color: 'black' }}
-  >
-    <ul className="list-none m-0" style={{ paddingInline: "10px" }}>
-      {languages.map((lang) => (
-        <li key={lang} className="w-full">
-          <div
-            onClick={() => {
-              setCurrentLang(lang);
-              setIsLangDropdownOpen(false);
-            }}
-            className={`cursor-pointer w-full text-center px-2 py-2 hover:bg-gray-200 ${
-              currentLang === lang ? 'font-bold bg-gray-300' : ''
-            }`}
-          >
-            {lang}
-          </div>
-        </li>
-      ))}
-    </ul>
-  </div>
-)}
-
+                <div
+                  className="absolute mt-2 w-24 bg-white text-black rounded shadow-lg z-50"
+                  style={{ backgroundColor: "white", color: "black" }}
+                >
+                  <ul
+                    className="list-none m-0"
+                    style={{ paddingInline: "10px" }}
+                  >
+                    {languages.map((lang) => (
+                      <li key={lang} className="w-full">
+                        <div
+                          onClick={() => {
+                            setCurrentLang(lang);
+                            setIsLangDropdownOpen(false);
+                          }}
+                          className={`cursor-pointer w-full text-center px-2 py-2 hover:bg-gray-200 ${
+                            currentLang === lang ? "font-bold bg-gray-300" : ""
+                          }`}
+                        >
+                          {lang}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           )}
 
