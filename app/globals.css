@@ -6,7 +6,13 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  /* overflow: hidden; */
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for Chrome, Edge, Safari */
+body::-webkit-scrollbar {
+  display: none;
 }
 
 a {
