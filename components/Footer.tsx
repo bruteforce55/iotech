@@ -8,16 +8,15 @@ export default function Footer() {
         <div className="flex justify-end items-center space-x-[15px]">
           {/* Email Input */}
           <div className="relative w-[350px]">
-  <input
-    type="email"
-    placeholder="Email"
-    className="w-[95%] pl-[16px] py-[8px] rounded-[6px] text-black text-[14px] outline-none"
-  />
-  <button className="absolute w-[40%] right-[4px] top-1/2 -translate-y-1/2 bg-[#2b1700] text-[#ffffff] px-[12px] py-[6px] rounded-[6px] font-semibold text-[12px]">
-    Subscribe
-  </button>
-</div>
-
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-[95%] pl-[16px] py-[8px] rounded-[6px] text-black text-[14px] outline-none"
+            />
+            <button className="absolute w-[40%] right-[4px] top-1/2 -translate-y-1/2 bg-[#2b1700] text-[#ffffff] px-[12px] py-[6px] rounded-[6px] font-semibold text-[12px]">
+              Subscribe
+            </button>
+          </div>
 
           {/* Contacts Text */}
           <span className="text-[14px]">Contacts</span>
