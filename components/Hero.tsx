@@ -1,28 +1,27 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useContext } from "react";
+import { LanguageContext } from "@/contexts/languageContext"; // adjust path if needed
 
 export default function Hero() {
+  const { language } = useContext(LanguageContext);
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
   const [mediaItems, setMediaItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
-  const fadeDuration = 500; // fade duration in ms
+  const fadeDuration = 500;
 
   useEffect(() => {
     async function fetchMedia() {
       try {
-        const res = await fetch(
-          "http://localhost:1337/api/medias?populate=videos"
-        );
+        const res = await fetch("http://localhost:1337/api/medias?populate=videos");
         const json = await res.json();
-
-        const mediaEntry = json.data[0]; // First media entry
+        const mediaEntry = json.data[0];
         if (!mediaEntry) return;
 
-        setTitle(mediaEntry.title || "");
-        setDetails(mediaEntry.details || "");
+        setTitle(mediaEntry[`title_${language}`] || "");
+        setDetails(mediaEntry[`details_${language}`] || "");
         setMediaItems(mediaEntry.videos || []);
       } catch (err) {
         console.error("Failed to fetch media", err);
@@ -30,16 +29,13 @@ export default function Hero() {
     }
 
     fetchMedia();
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     if (mediaItems.length === 0) return;
 
     const interval = setInterval(() => {
-      // Start fade out
       setFade(false);
-
-      // After fadeDuration, switch video and fade back in
       setTimeout(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % mediaItems.length);
         setFade(true);
@@ -49,7 +45,6 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, [mediaItems]);
 
-  // Placeholder content if media is still loading
   if (mediaItems.length === 0) {
     return (
       <section className="min-h-screen flex items-center justify-center bg-gray-800">
@@ -67,15 +62,14 @@ export default function Hero() {
     <section className="min-h-screen flex items-center bg-transparent">
       {/* Left: Vertical indicators + Title and Details */}
       <div className="w-[1/2] flex px-[50px]">
-        {/* Vertical Indicators */}
         <div className="flex flex-col space-y-[12px] mr-[16px] p-[50px]">
           {mediaItems.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-[15px] h-[15px] rounded-full border-2 duration-300
+              className={`w-[15px] h-[15px] rounded-full border-2 duration-300 
                 ${
-                  index === currentIndex
+                index === currentIndex
                   ? "bg-white border-white"
                   : "border-white bg-transparent hover:bg-white/50 hover:scale-150"
                 }
@@ -86,8 +80,7 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* Title and Details */}
-        <div className="flex flex-col rtl:text-right text-left">
+        <div className={`flex flex-col ${language === "ar" ? "rtl text-right" : "text-left"}`}>
           <h2 className="text-4xl font-bold mb-4">{title}</h2>
           <p className="text-lg text-gray-30 text-[14px] w-[600px]">{details}</p>
         </div>

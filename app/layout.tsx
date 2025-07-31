@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter, DM_Sans } from 'next/font/google'
-import LanguageProvider from './LanguageProvider'
+import { LanguageProvider } from '@/contexts/languageContext';
 
 const dmSans = DM_Sans({ subsets: ['latin'], weight: ['400', '700'] });
 

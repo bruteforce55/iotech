@@ -1,0 +1,56 @@
+{
+  "clientFeedback": {
+    "title": "ماذا يقول عملاؤنا",
+    "subtitle": "عملاؤنا يتنوعون من مستثمرين أفراد إلى شركات محلية وعالمية وشركات من قائمة فورتشن 500.",
+    "clients": [
+      {
+        "name": "محمد سيف",
+        "position": "المدير التنفيذي/شركة",
+        "image": "/team4.jpg",
+        "comment": "بفضل الموظفين المرحبين في الصفار وشركاؤه، تمكنت من إنجاز عملي بسهولة..."
+      },
+      {
+        "name": "جين دو",
+        "position": "مديرة/شركة",
+        "image": "/team3.png",
+        "comment": "كان الفريق في الصفار وشركاؤه مفيدًا للغاية ومهنيًا..."
+      },
+      {
+        "name": "جون سميث",
+        "position": "المؤسس/شركة",
+        "image": "/team.png",
+        "comment": "خدمة ممتازة! كان الفريق متاحًا دائمًا وجعل العملية سلسة..."
+      }
+    ]
+  },
+  "header": {
+    "logoAlt": "شعار الشركة",
+    "home": "الرئيسية",
+    "aboutUs": "من نحن",
+    "services": "الخدمات",
+    "blog": "المدونة",
+    "ourTeam": "فريقنا",
+    "contactUs": "اتصل بنا",
+    "bookAppointment": "حجز موعد",
+    "servicesList": {
+      "legalConsultation": "خدمات الاستشارات القانونية",
+      "foreignInvestigation": "خدمات التحقيقات الأجنبية",
+      "contracts": "العقود",
+      "notarization": "التوثيق",
+      "insurance": "التأمين",
+      "defense": "الدفاع في جميع القضايا",
+      "banks": "البنوك والمؤسسات المالية",
+      "governance": "خدمات حوكمة الشركات",
+      "liquidation": "تصفية الشركات",
+      "internalRegulation": "الأنظمة الداخلية للشركات",
+      "companySupport": "خدمات للشركات والمؤسسات",
+      "arbitration": "التحكيم",
+      "intellectualProperty": "الملكية الفكرية",
+      "restructuring": "إعادة هيكلة وإعادة تنظيم الشركات",
+      "companyFormation": "تأسيس الشركات الوطنية والأجنبية",
+      "commercialAgencies": "الوكالات التجارية",
+      "vision2030": "دعم رؤية 2030",
+      "estates": "العقارات"
+    }
+  }
+}

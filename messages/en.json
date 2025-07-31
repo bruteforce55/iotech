@@ -1,0 +1,56 @@
+{
+  "clientFeedback": {
+    "title": "What our clients are saying",
+    "subtitle": "Our clients range from individual investors to local, international, as well as fortune 500 companies.",
+    "clients": [
+      {
+        "name": "Mohammed Saif",
+        "position": "CEO/Company",
+        "image": "/team4.jpg",
+        "comment": "With the help of the hospitable staff of Al Safar and Partners, I was able to get my work done without any hassle..."
+      },
+      {
+        "name": "Jane Doe",
+        "position": "Manager/Company",
+        "image": "/team3.png",
+        "comment": "The team at Al Safar and Partners was incredibly helpful and professional..."
+      },
+      {
+        "name": "John Smith",
+        "position": "Founder/Company",
+        "image": "/team.png",
+        "comment": "Excellent service! The team was always available and made the process smooth..."
+      }
+    ]
+  },
+  "header": {
+    "logoAlt": "Company Logo",
+    "home": "Home",
+    "aboutUs": "About Us",
+    "services": "Services",
+    "blog": "Blog",
+    "ourTeam": "Our Team",
+    "contactUs": "Contact Us",
+    "bookAppointment": "Book Appointment",
+    "servicesList": {
+      "legalConsultation": "Legal Consultation Services",
+      "foreignInvestigation": "Foreign Investigation Services",
+      "contracts": "Contracts",
+      "notarization": "Notarization",
+      "insurance": "Insurance",
+      "defense": "Defense in All Cases",
+      "banks": "Banks and Financial Institution",
+      "governance": "Corporate Governance Services",
+      "liquidation": "Companies Liquidation",
+      "internalRegulation": "Internal Regulation for Companies",
+      "companySupport": "Services for Companies and Institution",
+      "arbitration": "Arbitration",
+      "intellectualProperty": "Intellectual Property",
+      "restructuring": "Corporate Restructuring and Reorganization",
+      "companyFormation": "Establishing National and Foreign Companies",
+      "commercialAgencies": "Commercial Agencies",
+      "vision2030": "Supporting Vision 2030",
+      "estates": "Estates"
+    }
+  }
+}
