@@ -89,7 +89,7 @@ export default function Header() {
           <Link href="/">
             <Image
               src="/header-logo.svg"
-              alt={t.header.logoAlt}  // translated alt text
+              alt={t.header.logoAlt} 
               width={120}
               height={50}
               priority

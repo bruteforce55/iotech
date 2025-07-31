@@ -57,14 +57,54 @@
     "title": "فريقنا",
     "description": "تعرف على العقول اللامعة وراء مهمتنا. من أصحاب الرؤى إلى الخبراء التقنيين، لكل عضو دور أساسي في تحويل الأفكار إلى واقع. نحن نقدر التعاون والابتكار والرغبة في خلق شيء ذو معنى.",
     "members": [
-      { "name": "جون دو", "position": "المدير التنفيذي والمؤسس" },
-      { "name": "جين سميث", "position": "رئيسة التسويق" },
-      { "name": "سام ويلسون", "position": "مدير المنتج" },
-      { "name": "أليكس ريفيرا", "position": "رئيس التكنولوجيا" },
-      { "name": "سام ويلسون", "position": "المدير التنفيذي والمؤسس" },
-      { "name": "ستيف روجرز", "position": "رئيس التسويق" },
-      { "name": "فيكتور ريفيرا", "position": "مدير المنتج" },
-      { "name": "ريد ريتشاردز", "position": "رئيس التكنولوجيا" }
+      {
+        "name": "جون دو",
+        "position": "المدير التنفيذي والمؤسس",
+        "image": "/team.png",
+        "contacts": ["phone", "whatsapp", "mail"]
+      },
+      {
+        "name": "جين سميث",
+        "position": "رئيسة التسويق",
+        "image": "/team.png",
+        "contacts": ["phone", "mail"]
+      },
+      {
+        "name": "سام ويلسون",
+        "position": "مدير المنتج",
+        "image": "/team.png",
+        "contacts": ["whatsapp", "mail"]
+      },
+      {
+        "name": "أليكس ريفيرا",
+        "position": "رئيس التكنولوجيا",
+        "image": "/team.png",
+        "contacts": ["phone", "whatsapp", "mail"]
+      },
+      {
+        "name": "سام ويلسون",
+        "position": "المدير التنفيذي والمؤسس",
+        "image": "/team.png",
+        "contacts": ["phone", "whatsapp", "mail"]
+      },
+      {
+        "name": "ستيف روجرز",
+        "position": "رئيس التسويق",
+        "image": "/team.png",
+        "contacts": ["phone", "mail"]
+      },
+      {
+        "name": "فيكتور ريفيرا",
+        "position": "مدير المنتج",
+        "image": "/team.png",
+        "contacts": ["whatsapp", "mail"]
+      },
+      {
+        "name": "ريد ريتشاردز",
+        "position": "رئيس التكنولوجيا",
+        "image": "/team.png",
+        "contacts": ["phone", "whatsapp", "mail"]
+      }
     ]
   }
 }

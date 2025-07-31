@@ -8,74 +8,25 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { useTranslation } from '@/contexts/languageContext';
-
-const teamMembers = [
-  {
-    name: 'John Doe',
-    position: 'CEO & Founder',
-    image: '/team.png',
-    contacts: ['phone', 'whatsapp', 'mail'],
-  },
-  {
-    name: 'Jane Smith',
-    position: 'Marketing Lead',
-    image: '/team.png',
-    contacts: ['phone', 'mail'],
-  },
-  {
-    name: 'Sam Wilson',
-    position: 'Product Manager',
-    image: '/team.png',
-    contacts: ['whatsapp', 'mail'],
-  },
-  {
-    name: 'Alex Rivera',
-    position: 'Tech Lead',
-    image: '/team.png',
-    contacts: ['phone', 'whatsapp', 'mail'],
-  },
-  {
-    name: 'Sam Wilson',
-    position: 'CEO & Founder',
-    image: '/team.png',
-    contacts: ['phone', 'whatsapp', 'mail'],
-  },
-  {
-    name: 'Steve Rogers',
-    position: 'Marketing Lead',
-    image: '/team.png',
-    contacts: ['phone', 'mail'],
-  },
-  {
-    name: 'Victor Rivera',
-    position: 'Product Manager',
-    image: '/team.png',
-    contacts: ['whatsapp', 'mail'],
-  },
-  {
-    name: 'Reed Richards',
-    position: 'Tech Lead',
-    image: '/team.png',
-    contacts: ['phone', 'whatsapp', 'mail'],
-  },
-];
-
+import en from '@/messages/en.json';
+import ar from '@/messages/ar.json';
 const iconMap = {
   phone: <Phone className="w-[16px] h-[16px]" />,
   mail: <Mail className="w-[16px] h-[16px]" />,
   whatsapp: <MessageCircle className="w-[16px] h-[16px]" />,
 };
-
 export default function OurTeamPage() {
-  const { t } = useTranslation();
-  const slidesPerGroup = 3;
+  const { t, language } = useTranslation();
 
-  const paddedTeamMembers = useMemo(() => {
-    const total = teamMembers.length;
+  const members = language === 'en' ? en.our_team.members : ar.our_team.members;
+
+  const slidesPerGroup = 3;
+  const paddedMembers = useMemo(() => {
+    const total = members.length;
     const remainder = total % slidesPerGroup;
     const paddingNeeded = remainder === 0 ? 0 : slidesPerGroup - remainder;
-    return [...teamMembers, ...Array(paddingNeeded).fill(null)];
-  }, [slidesPerGroup]);
+    return [...members, ...Array(paddingNeeded).fill(null)];
+  }, [members, slidesPerGroup]);
 
   return (
     <div id="our-team" className="max-w-7xl mx-auto px-[12px] py-[50px]" style={{ backgroundColor: "white" }}>
@@ -95,17 +46,17 @@ export default function OurTeamPage() {
         loop={false}
         className="max-w-[1250px] px-[40px]"
       >
-        {paddedTeamMembers.map((member, index) => (
+        {paddedMembers.map((member, index) => (
           <SwiperSlide key={index}>
             {member ? (
               <div className="bg-white rounded shadow-md p-[12px] text-center w-full h-full">
                 <Image
-                  src={member.image}
-                  alt={member.name}
-                  width={250}
-                  height={250}
-                  className="rounded"
-                />
+                src="/team.png"
+                 alt={member.name}
+                 width={250}
+                 height={250}
+                 className="rounded"
+                 />
                 <h3 className="mt-[12px] font-semibold text-lg text-[#3a1d0f]">
                   {member.name}
                 </h3>
