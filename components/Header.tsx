@@ -8,7 +8,11 @@ import { LanguageContext } from '@/contexts/languageContext';
 import en from '@/messages/en.json';
 import ar from '@/messages/ar.json';
 
-export default function Header() {
+interface HeaderProps {
+  onBookClick: () => void;
+}
+
+export default function Header({ onBookClick }: HeaderProps) {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("EN");
@@ -291,13 +295,13 @@ export default function Header() {
               )}
             </div>
           )}
-
-          <Link
-            href="/appointment"
-            className="bg-blue-600 text-white text-[15px] px-[16px] py-[8px] rounded-full hover:bg-blue-700 transition border border-white"
-          >
-            {t.header.bookAppointment}
-          </Link>
+<button
+  onClick={onBookClick}
+  className="bg-transparent text-[#ffffff] text-[15px] px-[16px] py-[8px] rounded-full hover:bg-blue-700 transition border border-[#ffffff] select-none cursor-pointer appearance-none focus:outline-none"
+  type="button"
+>
+  {t.header.bookAppointment}
+</button>
         </div>
       </nav>
     </header>
