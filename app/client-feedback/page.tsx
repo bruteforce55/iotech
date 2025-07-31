@@ -48,7 +48,7 @@ const clientFeedback = () => {
   };
 
   return (
-    <section className="min-h-screen w-full flex items-center justify-center bg-[#2b1700]">
+    <section className="min-h-screen w-full flex items-center justify-center bg-[#2b1700] rtl:text-right text-left">
       <div className="w-full px-[8%] space-y-[2rem]">
         {/* First Row: Title */}
         <div className="text-white text-[2.5rem] font-bold">

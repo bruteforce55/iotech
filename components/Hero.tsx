@@ -87,7 +87,7 @@ export default function Hero() {
         </div>
 
         {/* Title and Details */}
-        <div className="flex flex-col">
+        <div className="flex flex-col rtl:text-right text-left">
           <h2 className="text-4xl font-bold mb-4">{title}</h2>
           <p className="text-lg text-gray-30 text-[14px] w-[600px]">{details}</p>
         </div>

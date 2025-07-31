@@ -1,9 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter, DM_Sans } from 'next/font/google'
+import LanguageProvider from './LanguageProvider'
 
 const dmSans = DM_Sans({ subsets: ['latin'], weight: ['400', '700'] });
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,8 +16,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={dmSans.className}>{children}</body>
+    <html>
+      {/* no lang or dir here */}
+      <body className={dmSans.className}>
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
+      </body>
     </html>
   )
 }
