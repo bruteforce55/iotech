@@ -186,7 +186,7 @@ export default function Header() {
                         <Link href="/services/arbitration" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
                           {t.header.servicesList.arbitration}
                         </Link>
-                        <Link href="/services/ip" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                        <Link href="/services/intellectual-property" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
                           {t.header.servicesList.intellectualProperty}
                         </Link>
                         <Link href="/services/restructuring" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
