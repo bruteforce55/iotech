@@ -11,7 +11,6 @@ export default function Footer() {
     setError("");
     setStatus("");
 
-    // Basic frontend email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError("Please enter a valid email address.");
@@ -19,7 +18,6 @@ export default function Footer() {
     }
 
     try {
-      // Simulating an API call using setTimeout
       setStatus("Submitting...");
       await new Promise((resolve) => setTimeout(resolve, 1000)); // fake delay
 

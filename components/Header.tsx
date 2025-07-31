@@ -25,12 +25,10 @@ export default function Header({ onBookClick }: HeaderProps) {
   const { language, toggleLanguage } = useContext(LanguageContext);
   const t = language === "ar" ? ar : en;
 
-  // Sync local currentLang state with language from context
   useEffect(() => {
     setCurrentLang(language.toUpperCase());
   }, [language]);
 
-  // Close dropdowns on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -48,7 +46,6 @@ export default function Header({ onBookClick }: HeaderProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Close language dropdown when megamenu closes
   useEffect(() => {
     if (!isServicesOpen) {
       setIsLangDropdownOpen(false);
@@ -62,7 +59,6 @@ export default function Header({ onBookClick }: HeaderProps) {
     }
   }
 
-  // Update document directionality and lang attribute based on currentLang
   useEffect(() => {
     document.documentElement.dir = currentLang === "AR" ? "rtl" : "ltr";
     document.documentElement.lang = currentLang === "AR" ? "ar" : "en";
@@ -73,7 +69,6 @@ export default function Header({ onBookClick }: HeaderProps) {
     localStorage.setItem("preferredLang", currentLang);
   }, [currentLang]);
 
-  // Load from localStorage on mount
   useEffect(() => {
     const storedLang = localStorage.getItem("preferredLang");
     if (storedLang === "AR" || storedLang === "EN") {
@@ -88,7 +83,6 @@ export default function Header({ onBookClick }: HeaderProps) {
       }`}
     >
       <nav className="max-w-7xl mx-auto grid grid-cols-3 items-center relative">
-        {/* Logo */}
         <div className="flex items-center">
           <Link href="/">
             <Image

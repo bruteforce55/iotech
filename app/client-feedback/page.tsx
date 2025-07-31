@@ -32,21 +32,18 @@ const t = useMemo(() => (language === 'ar' ? ar : en), [language]);
   return (
     <section className="min-h-screen w-full flex items-center justify-center bg-[#2b1700] rtl:text-right text-left">
       <div className="w-full px-[8%] space-y-[2rem]">
-        {/* Title */}
         <div className="text-white text-[2.5rem] font-bold">
           {t.clientFeedback.title}
         </div>
 
-        {/* Subtitle */}
         <div className="text-white text-[1.25rem]">
           {t.clientFeedback.subtitle}
         </div>
 
-        {/* Feedback */}
         <div className="flex w-full space-x-[2rem] rtl:space-x-reverse">
           <div className="w-[33.33%] flex justify-center items-center">
             <img
-              src={clients[currentIndex].image} // use dynamic path from JSON
+              src={clients[currentIndex].image}
               alt="client"
               className={`w-[8rem] h-[8rem] rounded-full object-cover transition-opacity duration-500 ${
                 inTransition ? 'opacity-0' : 'opacity-100'
@@ -79,7 +76,6 @@ const t = useMemo(() => (language === 'ar' ? ar : en), [language]);
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="flex justify-end space-x-[1rem] rtl:space-x-reverse mt-[1rem]">
           <button
             onClick={prevClient}

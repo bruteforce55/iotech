@@ -60,7 +60,6 @@ export default function Hero() {
 
   return (
     <section className="min-h-screen flex items-center bg-transparent">
-      {/* Left: Vertical indicators + Title and Details */}
       <div className="w-[1/2] flex px-[50px]">
         <div className="flex flex-col space-y-[12px] mr-[16px] p-[50px]">
           {mediaItems.map((_, index) => (
@@ -86,7 +85,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Right: Single Video Carousel with fade */}
       <div className="w-1/2 flex p-[50px] ">
         <div
           className={`w-[450px] h-[300px] rounded-lg overflow-hidden bg-black/50 shrink-0`}

@@ -17,7 +17,6 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      {/* no lang or dir here */}
       <body className={dmSans.className}>
         <LanguageProvider>
           {children}

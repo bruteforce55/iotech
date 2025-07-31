@@ -1,5 +1,3 @@
-// servicesData.ts
-
 export const services = [
   {
     slug: "legal-consultation",
