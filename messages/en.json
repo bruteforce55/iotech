@@ -52,5 +52,19 @@
       "vision2030": "Supporting Vision 2030",
       "estates": "Estates"
     }
-  }
+  },
+  "our_team": {
+    "title": "Our Team",
+    "description": "Meet the brilliant minds behind our mission. From visionaries to technical experts, every member plays a crucial role in bringing ideas to life. We value collaboration, innovation, and the drive to create something meaningful.",
+    "members": [
+      { "name": "John Doe", "position": "CEO & Founder" },
+      { "name": "Jane Smith", "position": "Marketing Lead" },
+      { "name": "Sam Wilson", "position": "Product Manager" },
+      { "name": "Alex Rivera", "position": "Tech Lead" },
+      { "name": "Sam Wilson", "position": "CEO & Founder" },
+      { "name": "Steve Rogers", "position": "Marketing Lead" },
+      { "name": "Victor Rivera", "position": "Product Manager" },
+      { "name": "Reed Richards", "position": "Tech Lead" }
+    ]
+}
 }

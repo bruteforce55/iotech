@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
+import { useTranslation } from '@/contexts/languageContext';
 
 const teamMembers = [
   {
@@ -66,9 +67,9 @@ const iconMap = {
 };
 
 export default function OurTeamPage() {
+  const { t } = useTranslation();
   const slidesPerGroup = 3;
 
-  // 👇 Memoize a padded team list to ensure full groups
   const paddedTeamMembers = useMemo(() => {
     const total = teamMembers.length;
     const remainder = total % slidesPerGroup;
@@ -77,10 +78,12 @@ export default function OurTeamPage() {
   }, [slidesPerGroup]);
 
   return (
-    <div id="our-team" className="max-w-7xl mx-[auto] px-[12px] py-[50px]" style={{backgroundColor: "white"}}>
-      <h2 className="text-center text-3xl font-bold text-[#3a1d0f] mb-[12px]">Our Team</h2>
-      <p className="text-center text-gray-[600px] max-w-xl mx-[auto] mb-[36px]" style={{color: "black"}}>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry...
+    <div id="our-team" className="max-w-7xl mx-auto px-[12px] py-[50px]" style={{ backgroundColor: "white" }}>
+      <h2 className="text-center text-3xl font-bold text-[#3a1d0f] mb-[12px]">
+        {t("our_team.title")}
+      </h2>
+      <p className="text-center text-gray-[600px] max-w-xl mx-auto mb-[36px]" style={{ color: "black" }}>
+        {t("our_team.description")}
       </p>
 
       <Swiper
@@ -103,8 +106,10 @@ export default function OurTeamPage() {
                   height={250}
                   className="rounded"
                 />
-                <h3 className="mt-[12px] font-semibold text-lg text-[#3a1d0f]">{member.name}</h3>
-                <p className="text-[12px] text-gray-500 mb-[6px] uppercase tracking-wide" style={{color: "black"}}>
+                <h3 className="mt-[12px] font-semibold text-lg text-[#3a1d0f]">
+                  {member.name}
+                </h3>
+                <p className="text-[12px] text-gray-500 mb-[6px] uppercase tracking-wide" style={{ color: "black" }}>
                   {member.position}
                 </p>
                 <div className="flex justify-center gap-[16px]">
@@ -112,7 +117,7 @@ export default function OurTeamPage() {
                     <span
                       key={i}
                       className="p-[6px] rounded-full hover:bg-gray-100 cursor-pointer"
-                      style={{ color: "black"}}
+                      style={{ color: "black" }}
                     >
                       {iconMap[type]}
                     </span>
@@ -120,7 +125,6 @@ export default function OurTeamPage() {
                 </div>
               </div>
             ) : (
-              // 👇 Blank placeholder to maintain layout
               <div className="w-full h-[300px] bg-transparent" />
             )}
           </SwiperSlide>
