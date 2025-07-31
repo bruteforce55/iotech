@@ -1,32 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import Image from "next/image";
 import SearchToggle from "./SearchToggle";
+import { LanguageContext } from '@/contexts/languageContext';
+import en from '@/messages/en.json';
+import ar from '@/messages/ar.json';
 
 export default function Header() {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState("EN"); // default language
-  const servicesRef = useRef();
-  const langDropdownRef = useRef();
+  const [currentLang, setCurrentLang] = useState("EN");
 
-  const languages = ["EN", "AR"]; // example languages
+  const servicesRef = useRef(null);
+  const langDropdownRef = useRef(null);
 
-  // Close on outside click
+  const languages = ["EN", "AR"];
+
+  const { language, toggleLanguage } = useContext(LanguageContext);
+  const t = language === "ar" ? ar : en;
+
+  // Sync local currentLang state with language from context
   useEffect(() => {
-    function handleClickOutside(event) {
+    setCurrentLang(language.toUpperCase());
+  }, [language]);
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         servicesRef.current &&
-        !servicesRef.current.contains(event.target) &&
+        !servicesRef.current.contains(event.target as Node) &&
         langDropdownRef.current &&
-        !langDropdownRef.current.contains(event.target)
+        !langDropdownRef.current.contains(event.target as Node)
       ) {
         setIsServicesOpen(false);
         setIsLangDropdownOpen(false);
       }
-    }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -39,12 +52,30 @@ export default function Header() {
   }, [isServicesOpen]);
 
   function scrollToOurTeam() {
-  const element = document.getElementById('our-team');
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById('our-team');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
-}
 
+  // Update document directionality and lang attribute based on currentLang
+  useEffect(() => {
+    document.documentElement.dir = currentLang === "AR" ? "rtl" : "ltr";
+    document.documentElement.lang = currentLang === "AR" ? "ar" : "en";
+
+    document.body.classList.remove("rtl", "ltr");
+    document.body.classList.add(currentLang === "AR" ? "rtl" : "ltr");
+
+    localStorage.setItem("preferredLang", currentLang);
+  }, [currentLang]);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const storedLang = localStorage.getItem("preferredLang");
+    if (storedLang === "AR" || storedLang === "EN") {
+      setCurrentLang(storedLang);
+    }
+  }, []);
 
   return (
     <header
@@ -53,41 +84,40 @@ export default function Header() {
       }`}
     >
       <nav className="max-w-7xl mx-auto grid grid-cols-3 items-center relative">
-        <div>
-          <div className="flex items-center">
-            <Link href="/">
-              <Image
-                src="/header-logo.svg"
-                alt="Company Logo"
-                width={120}
-                height={50}
-                priority
-              />
-            </Link>
-          </div>
+        {/* Logo */}
+        <div className="flex items-center">
+          <Link href="/">
+            <Image
+              src="/header-logo.svg"
+              alt={t.header.logoAlt} 
+              width={120}
+              height={50}
+              priority
+            />
+          </Link>
         </div>
 
         <ul className="flex justify-center space-x-6 list-none relative w-max">
           {[
-            ["Home", "/"],
-            ["About Us", "/about"],
-            ["Services", null],
-            ["Blog", "/blog"],
-            ["Our Team", "scrollToOurTeam"],
-            ["Contact Us", "/contact"],
+            [t.header.home, "/"],
+            [t.header.aboutUs, "/about"],
+            [t.header.services, null],
+            [t.header.blog, "/blog"],
+            [t.header.ourTeam, "scrollToOurTeam"],
+            [t.header.contactUs, "/contact"],
           ].map(([label, href]) => (
             <li
-              key={label}
+              key={label as string}
               className="relative mx-[10px]"
-              ref={label === "Services" ? servicesRef : null}
+              ref={label === t.header.services ? servicesRef : null}
             >
-              {label === "Services" ? (
+              {label === t.header.services ? (
                 <>
                   <div
                     onClick={() => setIsServicesOpen(!isServicesOpen)}
                     className="cursor-pointer flex items-center space-x-1 text-white text-[15px] font-medium hover:text-gray-300 transition select-none"
                   >
-                    <span>Services</span>
+                    <span>{label}</span>
                     <svg
                       className={`w-4 h-4 transform transition-transform ${
                         isServicesOpen ? "rotate-180" : "rotate-0"
@@ -109,128 +139,74 @@ export default function Header() {
                   </div>
 
                   {isServicesOpen && (
-                    <div className="absolute left-1/2 transform -translate-x-1/2 top-[150%] px-[20px] py-[20px] mt-2 w-[1400px] bg-[#2b1700] text-white shadow-lg p-6 grid grid-cols-4 gap-6 z-50 h-[250px]">
+                    <div className="absolute left-1/2 rtl:text-right text-left transform -translate-x-1/2 top-[150%] px-[20px] py-[20px] mt-2 w-[1400px] bg-[#2b1700] text-white shadow-lg p-6 grid grid-cols-4 gap-6 z-50 h-[250px]">
                       {/* Column 1 */}
                       <div className="space-y-2 text-center">
-                        <Link
-                          href="/services/legal-consultation"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Legal Consultation Services
+                        <Link href="/services/legal-consultation" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.legalConsultation}
                         </Link>
-                        <Link
-                          href="/services/foreign-investigation"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Foreign Investigation Services
+                        <Link href="/services/foreign-investigation" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.foreignInvestigation}
                         </Link>
-                        <Link
-                          href="/services/contracts"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Contracts
+                        <Link href="/services/contracts" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.contracts}
                         </Link>
-                        <Link
-                          href="/services/notarization"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Notarization
+                        <Link href="/services/notarization" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.notarization}
                         </Link>
-                        <Link
-                          href="/services/insurance"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Insurance
+                        <Link href="/services/insurance" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.insurance}
                         </Link>
                       </div>
 
                       {/* Column 2 */}
                       <div className="space-y-2 text-center">
-                        <Link
-                          href="/services/defense"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Defense in All Cases
+                        <Link href="/services/defense" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.defense}
                         </Link>
-                        <Link
-                          href="/services/banks"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Banks and Financial Institution
+                        <Link href="/services/banks" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.banks}
                         </Link>
-                        <Link
-                          href="/services/governance"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Corporate Governance Services
+                        <Link href="/services/governance" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.governance}
                         </Link>
-                        <Link
-                          href="/services/liquidation"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Companies Liquidation
+                        <Link href="/services/liquidation" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.liquidation}
                         </Link>
-                        <Link
-                          href="/services/internal-regulation"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Internal Regulation for Companies
+                        <Link href="/services/internal-regulation" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.internalRegulation}
                         </Link>
                       </div>
 
                       {/* Column 3 */}
                       <div className="space-y-2 text-center">
-                        <Link
-                          href="/services/company-support"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Services for Companies and Institution
+                        <Link href="/services/company-support" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.companySupport}
                         </Link>
-                        <Link
-                          href="/services/arbitration"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Arbitration
+                        <Link href="/services/arbitration" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.arbitration}
                         </Link>
-                        <Link
-                          href="/services/ip"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Intellectual Property
+                        <Link href="/services/intellectual-property" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.intellectualProperty}
                         </Link>
-                        <Link
-                          href="/services/restructuring"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Corporate Restructuring and Reorganization
+                        <Link href="/services/restructuring" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.restructuring}
                         </Link>
                       </div>
 
                       {/* Column 4 */}
                       <div className="space-y-2 text-center">
-                        <Link
-                          href="/services/company-formation"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Establishing National and Foreign Companies
+                        <Link href="/services/company-formation" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.companyFormation}
                         </Link>
-                        <Link
-                          href="/services/commercial-agencies"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Commercial Agencies
+                        <Link href="/services/commercial-agencies" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.commercialAgencies}
                         </Link>
-                        <Link
-                          href="/services/vision-2030"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Supporting Vision 2030
+                        <Link href="/services/vision-2030" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.vision2030}
                         </Link>
-                        <Link
-                          href="/services/estates"
-                          className="block px-[15px] py-[15px] hover:underline text-[12px]"
-                        >
-                          Estates
+                        <Link href="/services/estates" className="block rtl:text-right text-left px-[15px] py-[15px] hover:underline text-[12px]">
+                          {t.header.servicesList.estates}
                         </Link>
                       </div>
                     </div>
@@ -239,11 +215,8 @@ export default function Header() {
               ) : href === "scrollToOurTeam" ? (
                 <span
                   onClick={() => {
-                    const element = document.getElementById("our-team");
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth" });
-                    }
-                    setIsServicesOpen(false); // close services menu if open
+                    scrollToOurTeam();
+                    setIsServicesOpen(false);
                   }}
                   className="cursor-pointer text-white text-[15px] font-medium hover:text-gray-300 transition"
                 >
@@ -251,7 +224,7 @@ export default function Header() {
                 </span>
               ) : (
                 <Link
-                  href={href}
+                  href={href as string}
                   className="text-white text-[15px] font-medium hover:text-gray-300 transition"
                 >
                   {label}
@@ -287,7 +260,7 @@ export default function Header() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     d="M19 9l-7 7-7-7"
-                  ></path>
+                  />
                 </svg>
               </div>
 
@@ -296,16 +269,14 @@ export default function Header() {
                   className="absolute mt-2 w-24 bg-white text-black rounded shadow-lg z-50"
                   style={{ backgroundColor: "white", color: "black" }}
                 >
-                  <ul
-                    className="list-none m-0"
-                    style={{ paddingInline: "10px" }}
-                  >
+                  <ul className="list-none m-0" style={{ paddingInline: "10px" }}>
                     {languages.map((lang) => (
                       <li key={lang} className="w-full">
                         <div
                           onClick={() => {
                             setCurrentLang(lang);
                             setIsLangDropdownOpen(false);
+                            toggleLanguage();
                           }}
                           className={`cursor-pointer w-full text-center px-2 py-2 hover:bg-gray-200 ${
                             currentLang === lang ? "font-bold bg-gray-300" : ""
@@ -325,7 +296,7 @@ export default function Header() {
             href="/appointment"
             className="bg-blue-600 text-white text-[15px] px-[16px] py-[8px] rounded-full hover:bg-blue-700 transition border border-white"
           >
-            Book Appointment
+            {t.header.bookAppointment}
           </Link>
         </div>
       </nav>
